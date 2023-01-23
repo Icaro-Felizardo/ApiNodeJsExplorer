@@ -11,8 +11,9 @@ function myMiddleware(request, response, next){
 }
 
 const usersController = new UsersController()
+const ensureAuthenticated = require("../middlewares/ensureAuthenticated")
 
 usersRoutes.post("/",myMiddleware, usersController.create)
-usersRoutes.put("/:id", usersController.update)
+usersRoutes.put("/", ensureAuthenticated, usersController.update)
 
 module.exports = usersRoutes;
